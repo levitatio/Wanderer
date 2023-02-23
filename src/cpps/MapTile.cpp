@@ -1,4 +1,4 @@
-#include "MapTile.h"
+#include "../include/MapTile.h"
 
 
 MapTile::MapTile() {

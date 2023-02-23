@@ -1,6 +1,7 @@
 #ifndef WANDERER_DRAWABLE_H
 #define WANDERER_DRAWABLE_H
-#include <SDL.h>
+
+#include <SDL2/SDL.h>
 #include <ctime>
 #include <stdlib.h>
 

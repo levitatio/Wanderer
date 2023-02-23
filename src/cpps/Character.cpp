@@ -1,4 +1,4 @@
-#include "Character.h"
+#include "../include/Character.h"
 
 Character::Character(MapTile* mapTilePtr) : Drawable(), _currentMapPtr(mapTilePtr), _maxHP(0), _currentHP(0), _DP(0), _SP(0) { _type = IMAGES::SKELETON;}
 

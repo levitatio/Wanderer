@@ -1,8 +1,10 @@
 #include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_keycode.h>
 #include <string>
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_keycode.h>
+
 #include "Drawable.h"
 #include "MapTile.h"
 #include "Monster.h"
@@ -187,7 +189,7 @@ bool loadImagesToTextures()
         return false;
     }
 
-    std::string path = "D:\\programozas\\Github\\repos\\greenfox\\Wanderer\\wanderer\\resources\\img\\";
+    std::string path = "/home/levi/src/learning_projects/sdl/Wanderer/Wanderer/resources/img/";
     //Load image at specified path. The path works the same as with txt files. It can be absolute or relative to the .exe file
 
     //The surfaces from images

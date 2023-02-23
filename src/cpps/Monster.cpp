@@ -1,4 +1,4 @@
-#include "Monster.h"
+#include "../include/Monster.h"
 #include <ctime>
 
 Monster::Monster(MapTile* mapTilePtr) : Character(mapTilePtr, 0,0, IMAGES::SKELETON) {
