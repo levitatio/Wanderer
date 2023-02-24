@@ -9,6 +9,8 @@
 #include "MapTile.h"
 #include "Monster.h"
 #include "Hero.h"
+#include "Renderable.h"
+#include "RenderController.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 800;
@@ -27,6 +29,7 @@ bool loadImagesToTextures();
 void destroyTextures();
 bool loadSurface (const std::string&, IMAGES);
 void drawHero(int);
+void moveHero(SDL_KeyCode kCode);
 
 //The window we'll be rendering to
 SDL_Window *gWindow = nullptr;
@@ -37,6 +40,7 @@ SDL_Renderer *gRenderer = nullptr;
 //The texture
 SDL_Texture* gTextures[8];  // stored texture pointers
 
+RenderController Renderable::rController = RenderController(*gRenderer);
 
 
 bool init() {
@@ -97,10 +101,12 @@ int main(int argc, char *args[]) {
     srand (time(NULL));
     //Event handler
     SDL_Event e;
+
+    
     MapTile mapTile;
     Hero hero(&mapTile);
-    Monster monster(&mapTile, 480, 240);
-    Monster monster2(&mapTile, 720, 720);
+    Monster monster(&mapTile, 480, 240, *gTextures[int(IMAGES::SKELETON)]);
+    Monster monster2(&mapTile, 720, 720, *gTextures[int(IMAGES::SKELETON)]);
 
     //While application is running
     while (!quit) {
@@ -159,11 +165,8 @@ int main(int argc, char *args[]) {
          */
         //Boss
 
-        monster.draw(gRenderer);
-        monster2.draw(gRenderer);
-        //drawHero(heroNumber);
-        hero.draw(gRenderer);
-
+        Renderable::rController.render();
+        
         //SDL_Delay(100);
         //drawImages ();
         //Update screen
