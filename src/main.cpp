@@ -189,7 +189,7 @@ bool loadImagesToTextures()
         return false;
     }
 
-    std::string path = "/home/levi/src/learning_projects/sdl/Wanderer/Wanderer/resources/img/";
+    std::string path = "/home/levi/src/learning_projects/sdl/Wanderer/resources/img/";
     //Load image at specified path. The path works the same as with txt files. It can be absolute or relative to the .exe file
 
     //The surfaces from images
