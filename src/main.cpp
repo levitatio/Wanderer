@@ -5,12 +5,14 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_keycode.h>
 
-#include "Drawable.h"
-#include "MapTile.h"
-#include "Monster.h"
-#include "Hero.h"
-#include "Renderable.h"
-#include "RenderController.h"
+#include <SDL2/SDL.h>
+// #include "Drawable.h"
+
+#include "include/MapTile.h"
+#include "include/Monster.h"
+#include "include/Hero.h"
+#include "include/Renderable.h"
+#include "include/RenderController.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 800;
@@ -40,7 +42,7 @@ SDL_Renderer *gRenderer = nullptr;
 //The texture
 SDL_Texture* gTextures[8];  // stored texture pointers
 
-RenderController Renderable::rController = RenderController(*gRenderer);
+RenderController* gRenderController  = nullptr;
 
 
 bool init() {
@@ -92,9 +94,11 @@ int main(int argc, char *args[]) {
     //Start up SDL and create window
     if (!init()) {
         std::cout << "Failed to initialize!" << std::endl;
-        close();
+        close();RenderController(*gRenderer);
         return -1;
     }
+
+    RenderController::Instance().Init(*gRenderer);
 
     //Main loop flag
     bool quit = false;
@@ -102,11 +106,13 @@ int main(int argc, char *args[]) {
     //Event handler
     SDL_Event e;
 
-    
-    MapTile mapTile;
-    Hero hero(&mapTile);
-    Monster monster(&mapTile, 480, 240, *gTextures[int(IMAGES::SKELETON)]);
-    Monster monster2(&mapTile, 720, 720, *gTextures[int(IMAGES::SKELETON)]);
+
+    MapTile mapTile(*gTextures[int(IMAGES::WALL)], *gTextures[int(IMAGES::FLOOR)]);
+    mapTile.createMap();
+    Hero hero(mapTile, *gTextures[int(IMAGES::HERODOWN)]);
+    Monster monster(mapTile, 480, 240, *gTextures[int(IMAGES::SKELETON)]);
+    Monster monster2(mapTile, 720, 720, *gTextures[int(IMAGES::SKELETON)]);
+
 
     //While application is running
     while (!quit) {
@@ -116,6 +122,7 @@ int main(int argc, char *args[]) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }else if( e.type == SDL_KEYDOWN ) {
+                // SDL_Log("in loop");
                 switch( e.key.keysym.sym ) {
                     case SDLK_UP:
                         //Pressed Up
@@ -133,12 +140,18 @@ int main(int argc, char *args[]) {
                         //Pressed Right
                         hero.moving(DIRECTION::RIGHT);
                         break;
+                    case SDLK_ESCAPE:
+                        quit = true;
+                        break;
                     default:
                         //Pressed something else
                         break;
                 }
+
+                // SDL_Log("after hero Move");
                 monster.moving();
                 monster2.moving();
+                // SDL_Log("after monsters Move");
             }
         }
 
@@ -148,25 +161,11 @@ int main(int argc, char *args[]) {
 
         //draw(gRenderer);
 
-        mapTile.createMap();
-        mapTile.renderMap(gRenderer);
-        /*
-        SDL_Rect rect;
-        for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < 10 ; ++j) {
-                rect = {i * 80, j* 80, 80, 80};
-                SDL_RenderCopy(gRenderer, gTextures[0], NULL, &rect);
-                if (i == 9) {
-                    rect = {i * 80, j * 80, 80, 80};
-                    SDL_RenderCopy(gRenderer, gTextures[1], NULL, &rect);
-                }
-            }
-        }
-         */
-        //Boss
 
-        Renderable::rController.render();
-        
+        // mapTile.renderMap(gRenderer);
+
+        RenderController::Instance().render();
+
         //SDL_Delay(100);
         //drawImages ();
         //Update screen

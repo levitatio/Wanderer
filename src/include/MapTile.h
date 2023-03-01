@@ -2,7 +2,7 @@
 #define WANDERER_MapTile_H
 
 #include <vector>
-#include "Drawable.h"
+#include "Tile.h"
 
 extern const int TILE_UNIT;
 const std::vector<std::vector<bool>> map{{0,0,0,1,0,0,0,0,0,0},
@@ -16,17 +16,18 @@ const std::vector<std::vector<bool>> map{{0,0,0,1,0,0,0,0,0,0},
                                     {0,1,1,1,0,0,0,0,1,0},
                                     {0,0,0,1,0,1,1,0,0,0}};
 
-
-
 class MapTile {
 public:
-    MapTile();
+    MapTile(SDL_Texture& wall, SDL_Texture& floor);
 
     void createMap();
     void renderMap(SDL_Renderer* render);
-    Drawable* searchTile (int rectX, int rectY);
+    Tile* searchTile(float, float);
 protected:
-    std::vector<Drawable> _tiles;
+    std::vector<Tile> _tiles;
+
+    SDL_Texture* _wall;
+    SDL_Texture* _floor;
 };
 
 

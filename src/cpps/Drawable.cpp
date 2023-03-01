@@ -17,7 +17,7 @@ Drawable::Drawable(int posX, int posY, IMAGES images) : _texturePtr(gTextures[in
 
 
 void Drawable::draw(SDL_Renderer* render) {
-    SDL_RenderCopy(render, _texturePtr, NULL, &_rect);
+    // SDL_RenderCopy(render, _texturePtr, NULL, &_rect);
 }
 
 void Drawable::setTexture(SDL_Texture* texture) {

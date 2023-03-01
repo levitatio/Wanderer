@@ -10,12 +10,14 @@ enum class DIRECTION {
 
 class Character {
 public:
-    Character(MapTile* mapTilePtr, SDL_Texture& t);
-    Character(MapTile* mapTilePtr, int posX, int posY, SDL_Texture& t);
+    Character(MapTile& mapTilePtr, SDL_Texture& t);
+    Character(MapTile& mapTilePtr, int posX, int posY, SDL_Texture& t);
 
     bool isDead ();
     void setCurrentPosition (int posX, int posY);
-    bool isPossibleMoving(DIRECTION direction);
+    void setCurrentPosition (const Vector2D&);
+    bool isPossibleMoving(Tile*);
+    Tile* getMoveDestinationTile(DIRECTION direction);
     virtual void moving(DIRECTION direction);
 
     void setRenderable();

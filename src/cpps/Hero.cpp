@@ -1,6 +1,6 @@
 #include "../include/Hero.h"
 
-Hero::Hero(MapTile* mapTilePtr) : Character(mapTilePtr, *gTextures[int(IMAGES::HERODOWN)]) {
+Hero::Hero(MapTile& mapTilePtr, SDL_Texture& text) : Character(mapTilePtr, text) {
     _maxHP = 21;
     _DP = 4;
     _SP = 6;

@@ -8,16 +8,34 @@ class Renderable;
 
 class RenderController {
     public:
-    RenderController(SDL_Renderer& renderer);
-    ~RenderController();
+    static RenderController& Instance()
+    {
+        if (!_pInstance)
+        {
+            Create();
+        }
 
-    void add(Renderable&);
+        return *_pInstance;
+    }
+
+    void Init(SDL_Renderer& renderer);
+    void add(Renderable*);
     void remove(Renderable&);
     void render();
-    
+
     private:
+    RenderController() {};
+    RenderController(const RenderController&) {};
+    ~RenderController()
+    {
+        _pInstance = nullptr;
+    };
+
     std::vector<Renderable*> _renderablePtr;
     SDL_Renderer* _rendererPtr;
+
+    static RenderController* _pInstance;
+    static void Create() { _pInstance = new RenderController(); };
 };
 
 

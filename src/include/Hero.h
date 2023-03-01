@@ -5,9 +5,9 @@
 
 class Hero : public Character {
 public:
-    Hero(MapTile* mapTilePtr);
+    Hero(MapTile&, SDL_Texture&);
     void setBaseImage();
-    void moving(DIRECTION direction) override;
+    void moving(DIRECTION) override;
 };
 
 

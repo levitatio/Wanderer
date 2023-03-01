@@ -6,8 +6,8 @@
 
 class Monster : public Character{
 public:
-    Monster(MapTile* , SDL_Texture&);
-    Monster(MapTile*, int posX, int posY, SDL_Texture&);
+    Monster(MapTile& , SDL_Texture&);
+    Monster(MapTile&, int posX, int posY, SDL_Texture&);
     void moving ();
 protected:
 };

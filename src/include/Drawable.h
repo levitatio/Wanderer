@@ -4,17 +4,18 @@
 #include <SDL2/SDL.h>
 #include <ctime>
 #include <stdlib.h>
-
-extern const int TILE_UNIT;
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
-extern SDL_Texture* gTextures[];
+#include "Renderable.h"
 
 
 
+
+
+
+/*
 enum class IMAGES{
     FLOOR, WALL, BOSS, SKELETON, HERODOWN, HEROUP, HEROLEFT, HERORIGHT
 };
+*/
 
 class Drawable {
 public:
