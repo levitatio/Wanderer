@@ -3,20 +3,12 @@
 
 #include <vector>
 #include "Renderable.h"
+#include "Singleton.h"
 
 class Renderable;
 
-class RenderController {
+class RenderController : public Singleton<RenderController> {
     public:
-    static RenderController& Instance()
-    {
-        if (!_pInstance)
-        {
-            Create();
-        }
-
-        return *_pInstance;
-    }
 
     void Init(SDL_Renderer& renderer);
     void add(Renderable*);
@@ -24,18 +16,8 @@ class RenderController {
     void render();
 
     private:
-    RenderController() {};
-    RenderController(const RenderController&) {};
-    ~RenderController()
-    {
-        _pInstance = nullptr;
-    };
-
-    std::vector<Renderable*> _renderablePtr;
     SDL_Renderer* _rendererPtr;
-
-    static RenderController* _pInstance;
-    static void Create() { _pInstance = new RenderController(); };
+    std::vector<Renderable*> _renderablesPtr;
 };
 
 

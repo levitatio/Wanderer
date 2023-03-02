@@ -128,4 +128,6 @@ fabric.properties
 #build
 build/
 
+tags
 
+build.sh
