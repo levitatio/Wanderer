@@ -1,4 +1,5 @@
 #include "../include/Renderable.h"
+#include "../include/Game.h"
 #include "SDL2/SDL_render.h"
 
 Renderable::Renderable() : _texturePtr(nullptr), _transformPtr(nullptr)
@@ -40,7 +41,7 @@ Renderable::Renderable(const Renderable& r)
 
 Renderable::~Renderable()
 {
-    RenderController::Instance().remove(*this);
+	Game::Instance().getRenderController().remove(*this);
 }
 
 void Renderable::init(SDL_Texture& text, Transform& tr, Vector2D imageSize)
@@ -106,7 +107,7 @@ void Renderable::setTexture(SDL_Texture& texture)
 {
     // SDL_Log(" setTexture %p", this);
     _texturePtr = &texture;
-    RenderController::Instance().add(this);
+	Game::Instance().getRenderController().add(this);
 }
 
 void Renderable::setTransform(Transform &transform)

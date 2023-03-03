@@ -1,5 +1,9 @@
  #include "../include/RenderController.h"
 
+RenderController::RenderController(SDL_Renderer& r)
+{
+	_rendererPtr = &r;
+}
 
 void RenderController::Init(SDL_Renderer& renderer) {
     _rendererPtr = &renderer;
@@ -23,6 +27,11 @@ void RenderController::remove(Renderable& renderable) {
 }
 
 void RenderController::render() {
+	
+	//Clear screen
+    SDL_SetRenderDrawColor(_rendererPtr, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(_rendererPtr);
+
 
     for (int i = 0; i < _renderablesPtr.size(); i++)
     {
@@ -31,4 +40,7 @@ void RenderController::render() {
             _renderablesPtr[i]->draw(*_rendererPtr);
         }
     }
+
+	// update screen	
+	SDL_RenderPresent(_rendererPtr);
 }

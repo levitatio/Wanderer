@@ -3,12 +3,13 @@
 
 #include <vector>
 #include "Renderable.h"
-#include "Singleton.h"
 
 class Renderable;
 
-class RenderController : public Singleton<RenderController> {
+class RenderController {
     public:
+	
+	RenderController(SDL_Renderer&);
 
     void Init(SDL_Renderer& renderer);
     void add(Renderable*);
