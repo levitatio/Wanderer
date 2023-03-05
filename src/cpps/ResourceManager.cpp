@@ -1,20 +1,20 @@
  #include "../include/RenderController.h"
 
-RenderController::RenderController(SDL_Renderer& r)
+ResourceManager::ResourceManager(SDL_Renderer& r)
 {
 	_rendererPtr = &r;
 }
 
-void RenderController::Init(SDL_Renderer& renderer) {
+void ResourceManager::Init(SDL_Renderer& renderer) {
     _rendererPtr = &renderer;
 }
 
-void RenderController::add(Renderable* renderable) {
+void ResourceManager::add(Renderable* renderable) {
     // SDL_Log("renderable added : %p", renderable);
     _renderablesPtr.push_back(renderable);
 }
 
-void RenderController::remove(Renderable& renderable) {
+void ResourceManager::remove(Renderable& renderable) {
 
     for (int i = _renderablesPtr.size() - 1; i > -1; i--)
     {
@@ -26,7 +26,7 @@ void RenderController::remove(Renderable& renderable) {
 
 }
 
-void RenderController::render() {
+void ResourceManager::render() {
 	
 	//Clear screen
     SDL_SetRenderDrawColor(_rendererPtr, 0xFF, 0xFF, 0xFF, 0xFF);

@@ -6,10 +6,10 @@
 
 class Renderable;
 
-class RenderController {
+class ResourceManager {
     public:
 	
-	RenderController(SDL_Renderer&);
+	ResourceManager(SDL_Renderer&);
 
     void Init(SDL_Renderer& renderer);
     void add(Renderable*);
