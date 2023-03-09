@@ -1,6 +1,6 @@
 #include "../include/Hero.h"
 
-Hero::Hero(MapTile& mapTilePtr, SDL_Texture& text) : Character(mapTilePtr, text) {
+Hero::Hero(MapTile& mapTilePtr, const std::string& filePath) : Character(mapTilePtr, filePath) {
     _maxHP = 21;
     _DP = 4;
     _SP = 6;

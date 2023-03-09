@@ -6,14 +6,14 @@
 #include <SDL2/SDL_keycode.h>
 
 #include <SDL2/SDL.h>
-// #include "Drawable.h"
+// #include "renderable.h"
 
 #include "include/Game.h"
 #include "include/MapTile.h"
 #include "include/Monster.h"
 #include "include/Hero.h"
 #include "include/Renderable.h"
-#include "include/RenderController.h"
+#include "include/ResourceManager.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 800;
@@ -24,16 +24,6 @@ const int TILE_UNIT = 80;
 int main(int argc, char *args[]) {
     
 	Game::Instance().init();
-	/*
-	//Start up SDL and create window
-    if (!init()) {
-        std::cout << "Failed to initialize!" << std::endl;
-        close();RenderController(*gRenderer);
-        return -1;
-    }
-
-    RenderController::Instance().Init(*gRenderer);
-	*/
 
     //Main loop flag
     bool quit = false;
@@ -41,12 +31,13 @@ int main(int argc, char *args[]) {
     //Event handler
     SDL_Event e;
 
+    std::string imgFolderPath = "/home/levi/src/learning_projects/sdl/Wanderer/resources/img";
 
-    MapTile mapTile(*Game::Instance().getTextures()[int(IMAGES::WALL)], *Game::Instance().getTextures()[int(IMAGES::FLOOR)]);
+    MapTile mapTile("/home/levi/src/learning_projects/sdl/Wanderer/resources/img/wall.png", "/home/levi/src/learning_projects/sdl/Wanderer/resources/img/floor.png");
     mapTile.createMap();
-    Hero hero(mapTile, *Game::Instance().getTextures()[int(IMAGES::HERODOWN)]);
-    Monster monster(mapTile, 480, 240, *Game::Instance().getTextures()[int(IMAGES::SKELETON)]);
-    Monster monster2(mapTile, 720, 720, *Game::Instance().getTextures()[int(IMAGES::SKELETON)]);
+    Hero hero(mapTile, "/home/levi/src/learning_projects/sdl/Wanderer/resources/img/hero-down.png");
+    Monster monster(mapTile, 480, 240, "/home/levi/src/learning_projects/sdl/Wanderer/resources/img/skeleton.png");
+    Monster monster2(mapTile, 720, 720, "/home/levi/src/learning_projects/sdl/Wanderer/resources/img/skeleton.png");
 
 
     //While application is running
@@ -90,7 +81,9 @@ int main(int argc, char *args[]) {
             }
         }
 
-		Game::Instance().getRenderController().render();
+        // SDL_Log("will render");
+		Game::Instance().getResourceManager().render();
+        // SDL_Log("has rendered");
 
         SDL_Delay(100);
 		

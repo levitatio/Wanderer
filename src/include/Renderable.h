@@ -5,14 +5,10 @@
 #include <ctime>
 #include <stdlib.h>
 #include <vector>
+#include <string>
 
+#include "TexturedRectangle.h"
 #include "Transform.h"
-#include "RenderController.h"
-
-extern const int TILE_UNIT;
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
-extern SDL_Texture* gTextures[];
 
 
 enum class IMAGES{
@@ -22,23 +18,24 @@ enum class IMAGES{
 class Renderable {
 public:
     Renderable();
-    Renderable(int, int, SDL_Texture&, Vector2D);
+    Renderable(const std::string& filePath, int, int, Vector2D);
     Renderable(const Renderable&);
     ~Renderable();
 
-    void init(SDL_Texture& text, Transform& tr, Vector2D imageSize);
-    void init(SDL_Texture& text, Vector2D position, Vector2D imageSize);
-    void draw(SDL_Renderer& render);
-    void setTexture(SDL_Texture& texture);
-    void setTransform(Transform& transform);
-    SDL_Rect getRect();
-    Transform* _transformPtr;
-protected:
-    SDL_Texture* _texturePtr;
-    // Transform* _transformPtr;
-    SDL_Rect _rect;
+	// std::string& getPath() { return _imagePath; }
+	// SDL_Texture* getTexture() { return _texturePtr; } 
+    TexturedRectangle& getTexturedRect() { return _texturedRect; }
 
-    Vector2D _imageSize;
+    void init(const std::string& path, Transform& tr, Vector2D imageSize);
+    void init(const std::string& path, Vector2D position, Vector2D imageSize);
+    void render(SDL_Renderer& render);
+    // void setTexture(SDL_Texture& texture);
+    void setTransform(Transform& transform);
+    // SDL_Rect getRect();
+    Transform _transform;
+protected:
+    TexturedRectangle _texturedRect;
+    // Transform* _transformPtr;
     int _indexZ = 0;
 };
 

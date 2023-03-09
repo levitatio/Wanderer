@@ -1,15 +1,17 @@
 #include "../include/MapTile.h"
+#include "../include/TexturedRectangle.h"
 
-MapTile::MapTile(SDL_Texture& wall, SDL_Texture& floor)
+MapTile::MapTile(const std::string& wallPath, const std::string& floorPath)
 {
-    _wall = &wall;
-    _floor = &floor;
+    int size = Game::Instance().TILE_UNIT;
+    _wall.init(wallPath, Vector2D(size, size));
+    _floor.init(floorPath, Vector2D(size, size));
 }
 
 void MapTile::createMap() {
 
     IMAGES image = IMAGES::FLOOR;
-    SDL_Texture* text = nullptr;
+    TexturedRectangle text;
     for (int i = 0; i < 10 ; ++i) {
         for (int j = 0; j < 10 ; ++j) {
             if (map.at(j).at(i)) {
@@ -19,8 +21,10 @@ void MapTile::createMap() {
                 text = _floor;
                 image = IMAGES::FLOOR;
             }
-            // SDL_Log("texture addr: %p", text);
-            _tiles.push_back(Tile(Vector2D(i * TILE_UNIT, j * TILE_UNIT), image, *text));
+            // std::string temp = "texture path: "+ text.getPath();
+            // SDL_Log(temp.c_str());
+            Tile* t = new Tile(Vector2D(i * TILE_UNIT, j * TILE_UNIT), image, text.getPath());
+            _tiles.push_back(t);
         }
     }
 }
@@ -29,16 +33,16 @@ void MapTile::createMap() {
 
 Tile* MapTile::searchTile(float x, float y) {
 
-    if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
+    if (x < 0 || y < 0 || x >= Game::Instance().SCREEN_WIDTH || y >= Game::Instance().SCREEN_HEIGHT)
     {
         // SDL_Log("out of bounds");
         return nullptr;
     }
 
     for (int i = 0; i < _tiles.size(); ++i) {
-        if (_tiles.at(i).isInside(x, y))
+        if (_tiles.at(i)->isInside(x, y))
         {
-            return &_tiles.at(i);
+            return _tiles.at(i);
         }
 
     }

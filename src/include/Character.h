@@ -10,8 +10,8 @@ enum class DIRECTION {
 
 class Character {
 public:
-    Character(MapTile& mapTilePtr, SDL_Texture& t);
-    Character(MapTile& mapTilePtr, int posX, int posY, SDL_Texture& t);
+    Character(MapTile& mapTilePtr, const std::string& filePath);
+    Character(MapTile& mapTilePtr, int posX, int posY, const std::string& filePath);
 
     bool isDead ();
     void setCurrentPosition (int posX, int posY);
@@ -29,7 +29,7 @@ protected:
     int _currentHP;
     int _DP;
     int _SP;
-    MapTile* _currentMapPtr;
+    MapTile& _currentMapPtr;
 };
 
 

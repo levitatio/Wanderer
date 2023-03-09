@@ -16,10 +16,10 @@ public:
         magnitude = 0;
     }
     
-    inline Vector2D(float x, float y) 
+    inline Vector2D(float X, float Y) 
     {
-        this->x = x;
-        this->y = y;
+        x = X;
+        y = Y;
         magnitude = sqrt(x * x + y * y);
     }
 

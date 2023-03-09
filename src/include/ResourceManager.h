@@ -1,15 +1,16 @@
-#ifndef WANDERER_RENDERCONTROLLER_H
-#define WANDERER_RENDERCONTROLLER_H
+#ifndef WANDERER_RESOURCEMANAGER_H
+#define WANDERER_RESOURCEMANAGER_H
 
 #include <vector>
 #include "Renderable.h"
-
-class Renderable;
 
 class ResourceManager {
     public:
 	
 	ResourceManager(SDL_Renderer&);
+
+    SDL_Texture* getTexture(const std::string& filePath);
+    SDL_Texture* loadSurface (const std::string& filePath);
 
     void Init(SDL_Renderer& renderer);
     void add(Renderable*);
@@ -22,4 +23,4 @@ class ResourceManager {
 };
 
 
-#endif // WANDERER_RENDERCONTROLLER_H
+#endif // WANDERER_RESOURCEMANAGER_H

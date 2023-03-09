@@ -1,14 +1,14 @@
 #include "../include/Monster.h"
 #include <ctime>
 
-Monster::Monster(MapTile& mapTilePtr, SDL_Texture& t) : Character(mapTilePtr, 0,0, t) {
+Monster::Monster(MapTile& mapTilePtr, const std::string& filePath) : Character(mapTilePtr, 0,0, filePath) {
     _maxHP = 29;
     _DP = 6;
     _SP = 7;
     _currentHP = _maxHP;
 }
 
-Monster::Monster(MapTile& mapTilePtr, int posX, int posY, SDL_Texture& t) : Character(mapTilePtr, posX, posY, t) {
+Monster::Monster(MapTile& mapTilePtr, int posX, int posY, const std::string& filePath) : Character(mapTilePtr, posX, posY, filePath) {
 
 }
 

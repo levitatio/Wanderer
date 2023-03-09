@@ -1,15 +1,16 @@
 #include "../include/Character.h"
+#include "../include/Game.h"
 
-Character::Character(MapTile& mapTilePtr, SDL_Texture& t) : _currentMapPtr(&mapTilePtr), _maxHP(0), _currentHP(0), _DP(0), _SP(0)
+Character::Character(MapTile& mapTilePtr, const std::string& filePath) : _currentMapPtr(mapTilePtr), _maxHP(0), _currentHP(0), _DP(0), _SP(0)
 {
-    _renderable.init(t, _transform, Vector2D(80, 80));
+    _renderable.init(filePath, _transform, Vector2D(80, 80));
 }
 
-Character::Character(MapTile& mapTilePtr, int posX, int posY, SDL_Texture& t) : _currentMapPtr(&mapTilePtr)
+Character::Character(MapTile& mapTilePtr, int posX, int posY, const std::string& filePath) : _currentMapPtr(mapTilePtr)
 {
     _transform.position.x = posX;
     _transform.position.y = posY;
-    _renderable.init(t, _transform, Vector2D(80, 80));
+    _renderable.init(filePath, _transform, Vector2D(80, 80));
     /*
     SDL_Log("current posX: %f posY: %f",
             _transform.position.x,
@@ -59,20 +60,21 @@ Tile* Character::getMoveDestinationTile(DIRECTION direction)
 
     switch (direction) {
         case DIRECTION::LEFT:
-            posDeltaX = -TILE_UNIT;
-            break;
-        case DIRECTION::UP  :
-            posDeltaY = -TILE_UNIT;
+            posDeltaX = -Game::Instance().TILE_UNIT;
             break;
         case DIRECTION::DOWN:
-            posDeltaY = +TILE_UNIT;
+            posDeltaY = +Game::Instance().TILE_UNIT;
             break;
         case DIRECTION::RIGHT:
-            posDeltaX = +TILE_UNIT;
+            posDeltaX = +Game::Instance().TILE_UNIT;
+            break;
+        case DIRECTION::UP:
+            posDeltaY = -Game::Instance().TILE_UNIT;
             break;
         default: break;
 
     }
 
-    return _currentMapPtr->searchTile(_transform.position.x + posDeltaX, _transform.position.y + posDeltaY);
+    Tile* result = _currentMapPtr.searchTile(_transform.position.x + posDeltaX, _transform.position.y + posDeltaY);
+    return result;
 }

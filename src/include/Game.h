@@ -2,8 +2,7 @@
 #define GAME_H
 
 #include "Singleton.h"
-#include "Renderable.h"
-#include "RenderController.h"
+#include "ResourceManager.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <string>
@@ -15,19 +14,17 @@ class Game : public Singleton<Game>
 		void close();
 		void test();
 
-		RenderController& getRenderController() { return *_rController; };
-		SDL_Texture** getTextures() { return _textureArr; }
+		ResourceManager& getResourceManager() { return *_resourceManager; };
 	// here should be global accessible objects
+		int TILE_UNIT = 80;
+		int SCREEN_HEIGHT = 800;
+		int SCREEN_WIDTH = 800;
 	private:
 		bool init_SDL();
-		void destroyTextures();
-		bool loadSurface(const std::string&, IMAGES);
-		bool loadImagesToTextures();
-
-		RenderController* _rController = nullptr;
+		
+		ResourceManager* _resourceManager = nullptr;
 		SDL_Window* _window = nullptr;
 		SDL_Renderer* _renderer = nullptr;
-		SDL_Texture* _textureArr[8];
 };	     
 
 

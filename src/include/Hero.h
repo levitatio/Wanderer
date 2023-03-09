@@ -5,7 +5,7 @@
 
 class Hero : public Character {
 public:
-    Hero(MapTile&, SDL_Texture&);
+    Hero(MapTile&, const std::string&);
     void setBaseImage();
     void moving(DIRECTION) override;
 };
